@@ -1,0 +1,7 @@
+aws
+awscliv2.zip
+LICENSE.txt
+terraform_1.12.1_linux_amd64.zip
+terraform_1.8.2_linux_amd64.zip
+.terraform
+.terraform.lock.hcl

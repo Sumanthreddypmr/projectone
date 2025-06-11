@@ -1,0 +1,51 @@
+eks-microservices-project/
+│
+├── backend/                          # Remote backend config (shared)
+│   ├── main.tf                       # S3 bucket + DynamoDB table
+│   └── variables.tf
+│
+├── terraform/
+│   ├── modules/
+│   │   ├── vpc/
+│   │   │   ├── main.tf
+│   │   │   ├── variables.tf
+│   │   │   └── outputs.tf
+│   │   ├── iam/
+│   │   ├── eks/
+│   │   └── ecr/
+│   │
+│   ├── environments/
+│   │   └── dev/
+│   │       ├── main.tf              # Calls modules (vpc, eks, etc.)
+│   │       ├── variables.tf
+│   │       ├── terraform.tfvars
+│   │       └── backend.tf           # Uses S3 + DynamoDB for remote state
+│
+├── application/
+│   ├── appointment/
+│   │   ├── app.py
+│   │   └── Dockerfile
+│   └── patient/
+│       ├── app.py
+│       └── Dockerfile
+│
+├── k8s-manifests/
+│   ├── appointment/
+│   │   ├── deployment.yaml
+│   │   └── service.yaml
+│   └── patient/
+│       ├── deployment.yaml
+│       └── service.yaml
+│
+├── .github/
+│   └── workflows/
+│       ├── terraform.yaml           # Terraform lint, plan, apply
+│       ├── docker-build.yaml        # Build and push Docker images to ECR
+│       └── eks-deploy.yaml          # kubectl apply to EKS cluster
+│
+├── monitoring/
+│   ├── cloudwatch-logging.md
+│   └── prometheus-grafana-setup.md  # (Bonus)
+│
+├── README.md
+└── architecture-diagram.png
