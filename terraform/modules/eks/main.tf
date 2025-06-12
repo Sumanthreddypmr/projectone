@@ -19,5 +19,6 @@ module "eks" {
   }
 
   enable_cluster_creator_admin_permissions = true
+  iam_role_arn = module.eks_node_group_role.iam_role_arn
 }
 
