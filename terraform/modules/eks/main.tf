@@ -7,18 +7,27 @@ module "eks" {
   vpc_id          = var.vpc_id
   subnet_ids      = var.private_subnets
 
+  enable_cluster_creator_admin_permissions = true
+  iam_role_arn = var.cluster_iam_role_arn
+
   eks_managed_node_groups = {
     default = {
-      desired_size = 2
-      max_size     = 3
+      node_group_name = "example"
+
+      desired_size = 1
+      max_size     = 1 
       min_size     = 1
 
       instance_types = ["t3.medium"]
       capacity_type  = "ON_DEMAND"
+
+      update_config = {
+        max_unavailable = 1
+      }
+
+      tags = {
+        "Name" = "example-node-group"
+      }
     }
   }
-
-  enable_cluster_creator_admin_permissions = true
-  iam_role_arn = module.eks_node_group_role.iam_role_arn
 }
-
