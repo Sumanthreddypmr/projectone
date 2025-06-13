@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "tf_state" {
-  bucket = "eks-project-tf-state-bucket"
+  bucket = "eks-project-tf-state-bucket-sumanth-543003"
 
   versioning {
     enabled = true

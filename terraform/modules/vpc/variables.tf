@@ -1,11 +1,29 @@
-variable "name" {}
-variable "vpc_cidr" {}
+variable "name" {
+  description = "Name prefix for resources"
+  type        = string
+}
+
+variable "vpc_cidr" {
+  description = "CIDR block for the VPC"
+  type        = string
+}
+
 variable "public_subnets" {
-  type = list(string)
+  description = "List of public subnet CIDRs"
+  type        = list(string)
 }
+
 variable "private_subnets" {
-  type = list(string)
+  description = "List of private subnet CIDRs"
+  type        = list(string)
 }
+
 variable "azs" {
-  type = list(string)
+  description = "List of availability zones"
+  type        = list(string)
+}
+
+variable "cluster_name" {
+  description = "EKS cluster name for subnet tagging"
+  type        = string
 }

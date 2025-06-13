@@ -6,18 +6,22 @@ module "vpc" {
   public_subnets   = ["10.0.1.0/24"]
   private_subnets  = ["10.0.2.0/24", "10.0.3.0/24"]
   azs              = ["us-east-1a", "us-east-1b"]
+  cluster_name     = var.cluster_name
 }
+
 
 module "iam" {
   source = "../../modules/iam"
 }
 
 module "eks" {
-  source  = "../../modules/eks"
-  cluster_name        = var.cluster_name
+  source               = "../../modules/eks"
+  cluster_name         = var.cluster_name
   cluster_version      = var.cluster_version
   vpc_id               = module.vpc.vpc_id
   private_subnets      = module.vpc.private_subnets
   cluster_iam_role_arn = module.iam.cluster_iam_role_arn
   node_group_role_arn  = module.iam.node_group_role_arn
 }
+
+
