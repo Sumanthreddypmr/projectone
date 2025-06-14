@@ -14,6 +14,7 @@ jobs:
 
     env:
       AWS_REGION: ${{ secrets.AWS_REGION }}
+      ACCOUNT_ID: ${{ secrets.ACCOUNT_ID }}
       ECR_REPO_NAME: ${{ secrets.ECR_REPO_NAME }}
 
     steps:
@@ -25,26 +26,25 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws-region: ${{ env.AWS_REGION }}
 
       - name: Login to Amazon ECR
-        id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
       - name: Build, tag, and push Appointment Service image
         working-directory: microservices/appointment-service
         run: |
-          IMAGE_TAG=appointment-service:latest
-          ECR_URI=${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPO_NAME }}-appointment
-          docker build -t $IMAGE_TAG .
-          docker tag $IMAGE_TAG $ECR_URI
-          docker push $ECR_URI
+          IMAGE_NAME=appointment-service
+          IMAGE_URI=${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO_NAME}:$IMAGE_NAME
+          docker build -t $IMAGE_NAME .
+          docker tag $IMAGE_NAME $IMAGE_URI
+          docker push $IMAGE_URI
 
       - name: Build, tag, and push Patient Service image
         working-directory: microservices/patient-service
         run: |
-          IMAGE_TAG=patient-service:latest
-          ECR_URI=${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPO_NAME }}-patient
-          docker build -t $IMAGE_TAG .
-          docker tag $IMAGE_TAG $ECR_URI
-          docker push $ECR_URI
+          IMAGE_NAME=patient-service
+          IMAGE_URI=${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO_NAME}:$IMAGE_NAME
+          docker build -t $IMAGE_NAME .
+          docker tag $IMAGE_NAME $IMAGE_URI
+          docker push $IMAGE_URI
