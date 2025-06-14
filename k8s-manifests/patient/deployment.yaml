@@ -19,3 +19,4 @@ spec:
         image: 825765405000.dkr.ecr.us-east-1.amazonaws.com/sattiipatwala:patient-service
         ports:
         - containerPort: 5000
+        imagePullPolicy: Always
