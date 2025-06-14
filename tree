@@ -29,14 +29,7 @@ eks-microservices-project/
 │       ├── app.py
 │       └── Dockerfile
 │
-├── k8s-manifests/
-│   ├── appointment/
-│   │   ├── deployment.yaml
-│   │   └── service.yaml
-│   └── patient/
-│       ├── deployment.yaml
-│       └── service.yaml
-│
+
 ├── .github/
 │   └── workflows/
 │       ├── terraform.yaml           # Terraform lint, plan, apply

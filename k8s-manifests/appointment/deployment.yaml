@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: appointment
-        image: 543003945919.dkr.ecr.us-east-1.amazonaws.com/pixels-repo:appointment-service
+        image: 825765405000.dkr.ecr.us-east-1.amazonaws.com/sattiipatwala:appointment-service
         ports:
         - containerPort: 5000
