@@ -50,8 +50,10 @@ resource "aws_internet_gateway" "this" {
 
 # Elastic IP for NAT Gateway
 resource "aws_eip" "nat" {
-  vpc = true
+  # vpc = true   <-- ✅ Remove or comment out this line
+  depends_on = [aws_internet_gateway.this]  # Optional but good for order
 }
+
 
 # NAT Gateway for private subnets
 resource "aws_nat_gateway" "this" {

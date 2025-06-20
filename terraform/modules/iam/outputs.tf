@@ -9,3 +9,12 @@ output "node_group_role_arn" {
 output "key_name" {
   value = aws_key_pair.eks.key_name
 }
+
+output "ecs_execution_role_arn" {
+  value = aws_iam_role.ecs_execution_role.arn
+}
+
+output "ecs_task_role_arn" {
+  value = aws_iam_role.ecs_task_role.arn
+}
+
